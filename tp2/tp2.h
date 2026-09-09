@@ -38,7 +38,7 @@ private:
      */
     struct Node {
         // Unico constructor de Node: utiliza el constructor por copia de T
-        Node(const T& v) : value(v) {}
+        Node(const T& v) : value(v), next(nullptr), prev(nullptr) {}
         T value;
         Node *next;
         Node *prev;
@@ -324,6 +324,7 @@ List<T>::~List() {
 
     this->head = nullptr;
     this->tail = nullptr;
+    this->size = 0
 }
 
 template<typename T>
@@ -453,7 +454,7 @@ List<T>::ListIter::ListIter(List *list, List::Node *start) {
 template <typename T>
 bool List<T>::ListIter::forward() {
     // TODO: avanzar una posición si se puede.
-    if (this->curr != nullptr && this->curr->next != nullptr  && this->curr != list->tail) {
+    if (curr != nullptr && curr->next != nullptr) {
         this->curr = this->curr->next;
         return true;
     }
@@ -463,7 +464,7 @@ bool List<T>::ListIter::forward() {
 template <typename T>
 bool List<T>::ListIter::backward() {
     // TODO: retroceder una posición si se puede.
-    if (this->curr != nullptr && this->curr->next != nullptr && this->curr != list->head) {
+    if (this->curr != nullptr && this->curr->prev != nullptr) {
         this->curr = this->curr->prev;
         return true;
     }
@@ -552,6 +553,7 @@ T List<T>::ListIter::remove() {
             delete nodo_a_borrar;
             list->head = nullptr;
             list->tail = nullptr;
+            list->size--;
             return value;
         }
 
