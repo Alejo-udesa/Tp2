@@ -365,14 +365,15 @@ void List<T>::insert_tail(const T& value) {
     // TODO: reservar un nodo con new, enlazarlo al final y
     // actualizar head/tail/size.
     List<T>::Node* nodo_nuevo = new List<T>::Node(value);
+    nodo_nuevo->next = nullptr;
+    nodo_nuevo->prev = this->tail;
+
     if (this->tail == nullptr) {
         this->head = nodo_nuevo;
-        this->tail = nodo_nuevo;
     } else {
         this->tail->next = nodo_nuevo;
-        nodo_nuevo->prev = this->tail;
-        this->tail = nodo_nuevo;
     }
+    this->tail = nodo_nuevo;
     size++;
 }
 
